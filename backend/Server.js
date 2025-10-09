@@ -428,6 +428,34 @@ app.put("/api/team/:id", upload.single("photo"), async (req, res) => {
   }
 });
 
+// 🔹 Function to initialize Admin table if empty
+const initializeAdmin = async () => {
+  try {
+    // Ensure Admin table exists
+    await Admin.sync(); // or await sequelize.sync({ alter: true }) for all tables
+
+    // Check if there are any admins
+    const count = await Admin.count();
+    if (count === 0) {
+      console.log("Admin table is empty. Creating default admin...");
+
+      const hashedPassword = await bcrypt.hash("admin123", 10);
+
+      await Admin.create({
+        username: "rumooz",
+        email: "khanalumesh14@gmail.com",
+        password: hashedPassword,
+        contact_mail: "khanalumesh14@gmail.com",
+      });
+
+      console.log("Default admin created successfully.");
+    } else {
+      console.log("Admin table already has data. Skipping initialization.");
+    }
+  } catch (err) {
+    console.error("Error initializing admin table:", err);
+  }
+};
 
 
 const startServer = async () => {
@@ -452,5 +480,6 @@ const startServer = async () => {
 };
 
 startServer();
+
 
 
