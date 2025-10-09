@@ -331,41 +331,47 @@ app.get("/requests", async (req, res) => {
   }
 });
 
-// ---------- CONTACT FORM ----------
 app.post("/contact", async (req, res) => {
   try {
     let { name, email, phone, whatsapp, message } = req.body;
-    phone = "+" + phone;
+
+    phone = phone ? (phone.startsWith("+") ? phone : "+" + phone) : "";
+
     console.log("📩 Contact form data received:", req.body);
-    // Fetch the single admin (no ID needed)
+
     const admin = await Admin.findOne({
-      attributes: ["id", "username", "email", "contact_mail"], // underscore
+      attributes: ["id", "username", "email", "contact_mail"],
     });
-    console.log(admin);
-    if (!admin || !admin.contact_mail) {
+
+    if (!admin) {
+      console.error("Admin not found in DB!");
+      return res.status(500).json({ message: "Admin not found." });
+    }
+
+    if (!admin.contact_mail) {
+      console.error("Admin contact_mail is empty!");
       return res.status(500).json({ message: "Admin contact email not found." });
     }
 
-    // Send notification to admin
-    await sendEmail({
-      to: admin.contact_mail, // use contact_mail from DB
-      subject: "New Contact Form Submission",
-      html: getAdminFormNotificationEmail({
-        name,
-        email,
-        phone,
-        whatsapp,
-        message,
-      }),
-      text: "New form submitted",
-    });
+    try {
+      await sendEmail({
+        to: admin.contact_mail,
+        subject: "New Contact Form Submission",
+        html: getAdminFormNotificationEmail({ name, email, phone, whatsapp, message }),
+        text: `New form submitted:\nName: ${name}\nEmail: ${email}\nPhone: ${phone}\nWhatsApp: ${whatsapp}\nMessage: ${message}`,
+      });
+    } catch (emailErr) {
+      console.error("❌ Email sending failed:", emailErr);
+      // Optionally: return res.status(500).json({ message: "Failed to send email" });
+    }
 
     res.status(200).json({ message: "Form submitted successfully." });
   } catch (err) {
-    console.error(err);
-    res.status(500).json({ message: "Something went wrong." });
+    console.error("❌ /contact route error:", err);
+    res.status(500).json({ message: "Something went wrong.", error: err.message });
   }
 });
+
 
 // ---------- TEAM SECTION ----------
 const storage = multer.diskStorage({
@@ -493,6 +499,7 @@ const startServer = async () => {
 };
 
 startServer();
+
 
 
 
