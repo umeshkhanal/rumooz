@@ -34,7 +34,7 @@ export default function AdminLogin() {
     setVerifyMessage("");
 
     try {
-      const res = await fetch(`${process.env.REACT_APP_API_URL}/api/admin/login`, {
+      const res = await fetch('https://rumooz.onrender.com/api/admin/login', {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(form),
@@ -242,3 +242,4 @@ export default function AdminLogin() {
     </div>
   );
 }
+
