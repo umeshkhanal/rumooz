@@ -45,7 +45,7 @@ export default function Contact() {
   };
 
   // ✅ Use dynamic API URL from environment
-  const API_URL = process.env.REACT_APP_API_URL || "http://localhost:5000";
+  const API_URL = process.env.REACT_APP_API_URL;
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -370,3 +370,4 @@ export default function Contact() {
     </section>
   );
 }
+
