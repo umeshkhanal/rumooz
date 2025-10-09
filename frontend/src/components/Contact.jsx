@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
 import { motion } from "framer-motion";
-
+const API_URL = "https://rumooz-backend.onrender.com";
 // Animation variants
 const boxVariants = {
   hidden: { opacity: 0, scale: 0.8 },
@@ -46,6 +46,8 @@ export default function Contact() {
 
 
 
+
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -56,7 +58,7 @@ export default function Contact() {
     }
 
     try {
-      const res = await fetch('https://rumooz-backend.onrender.com/contact', {
+      const res = await fetch(`${API_URL}/contact`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
@@ -369,5 +371,6 @@ export default function Contact() {
     </section>
   );
 }
+
 
 
