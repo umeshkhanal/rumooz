@@ -333,7 +333,7 @@ app.post("/contact", async (req, res) => {
   try {
     let { name, email, phone, whatsapp, message } = req.body;
     phone = "+" + phone;
-
+    console.log("📩 Contact form data received:", req.body);
     // Fetch the single admin (no ID needed)
     const admin = await Admin.findOne({
       attributes: ["id", "username", "email", "contact_mail"], // underscore
@@ -489,6 +489,7 @@ const startServer = async () => {
 };
 
 startServer();
+
 
 
 
