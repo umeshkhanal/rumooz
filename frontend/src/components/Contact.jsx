@@ -44,8 +44,7 @@ export default function Contact() {
     if (value) setPhoneError("");
   };
 
-  // ✅ Use dynamic API URL from environment
-  const API_URL = process.env.REACT_APP_API_URL;
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -57,7 +56,7 @@ export default function Contact() {
     }
 
     try {
-      const res = await fetch(`${API_URL}/contact`, {
+      const res = await fetch('https://rumooz-backend.onrender.com/contact', {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
@@ -370,4 +369,5 @@ export default function Contact() {
     </section>
   );
 }
+
 
