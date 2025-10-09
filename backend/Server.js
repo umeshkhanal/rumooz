@@ -428,6 +428,29 @@ app.put("/api/team/:id", upload.single("photo"), async (req, res) => {
   }
 });
 
-// ---------- START SERVER ----------
-const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+
+
+const startServer = async () => {
+  try {
+    // Connect to DB
+    await sequelize.authenticate();
+    console.log("PostgreSQL connected successfully");
+
+    // Sync all tables
+    await sequelize.sync({ alter: true });
+    console.log("Database & tables synced");
+
+    // Initialize default admin if table is empty
+    await initializeAdmin();
+
+    // Start server
+    const PORT = process.env.PORT || 5000;
+    app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+  } catch (err) {
+    console.error("Failed to start server:", err);
+  }
+};
+
+startServer();
+
+
