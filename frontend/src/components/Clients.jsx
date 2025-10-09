@@ -46,7 +46,7 @@ export default function Clients() {
         location: member.location,
         photo: null,
       });
-      setPreview(member.photo ? `${process.env.REACT_APP_API_URL}${member.photo}` : null);
+      setPreview(member.photo ? `${API_URL}${member.photo}` : null);
 
     } else {
       setEditingId(null);
@@ -75,8 +75,8 @@ export default function Clients() {
 
     try {
       const url = editingId
-        ? `${process.env.REACT_APP_API_URL}/api/team/${editingId}`
-        : `${process.env.REACT_APP_API_URL}/api/team`;
+        ? `${API_URL}/api/team/${editingId}`
+        : `${API_URL}/api/team`;
       const method = editingId ? "PUT" : "POST";
 
       const res = await fetch(url, { method, body: form });
@@ -157,7 +157,7 @@ export default function Clients() {
                   <img
                     src={
                       member.photo
-                        ? `${process.env.REACT_APP_API_URL}${member.photo}`
+                        ? `${API_URL}${member.photo}`
                         : "/default-avatar.png"
                     }
                     alt={member.name}
@@ -245,4 +245,5 @@ export default function Clients() {
     </section>
   );
 }
+
 
