@@ -52,7 +52,9 @@ app.get("/api/protected", authenticateToken, (req, res) => {
 app.post("/api/admin/login", async (req, res) => {
   try {
     const { username, password } = req.body;
+    console.log("Login attempt:", req.body);
     const admin = await Admin.findOne({ where: { username } });
+    console.log("Found admin:", admin?.toJSON());
     if (!admin) return res.status(400).json({ message: "Invalid credentials" });
 
     const isMatch = await bcrypt.compare(password, admin.password);
@@ -480,6 +482,7 @@ const startServer = async () => {
 };
 
 startServer();
+
 
 
 
