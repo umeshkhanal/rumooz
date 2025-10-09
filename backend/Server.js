@@ -34,7 +34,7 @@ sequelize
   .catch((err) => console.error("Unable to connect to database:", err));
 
 sequelize
-  .sync({ alter: true })
+  .sync()
   .then(() => console.log("Database & tables synced"))
   .catch((err) => console.error("Sync error:", err));
 
@@ -480,6 +480,7 @@ const startServer = async () => {
 };
 
 startServer();
+
 
 
 
