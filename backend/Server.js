@@ -53,6 +53,10 @@ app.get("/", (req, res) => {
 app.get("/api/protected", authenticateToken, (req, res) => {
   res.json({ message: "🔒 Protected route accessed", user: req.user });
 });
+app.post("/api/test-post", (req, res) => {
+    console.log("POST received:", req.body);
+    res.json({ message: "POST works!", data: req.body });
+});
 
 // ---------- ADMIN LOGIN ----------
 app.post("/api/admin/login", async (req, res) => {
@@ -494,6 +498,7 @@ const startServer = async () => {
 };
 
 startServer();
+
 
 
 
