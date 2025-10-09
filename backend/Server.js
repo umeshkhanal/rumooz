@@ -22,14 +22,9 @@ const {
 dotenv.config();
 const app = express();
 
-app.use(cors({
-  origin: "*",
-  methods: ["GET","POST","PUT","DELETE"],
-  allowedHeaders: ["Content-Type","Authorization"]
-}));
+app.use(cors());
 
-app.use(express.json()); // for JSON POST requests
-app.use(express.urlencoded({ extended: true })); // for form POST requests
+app.use(express.json());
 
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
@@ -440,10 +435,6 @@ app.put("/api/team/:id", upload.single("photo"), async (req, res) => {
   }
 });
 
-app.get("/api/test", (req, res) => {
-  res.json({ message: "Backend is reachable!" });
-});
-
 
 // 🔹 Function to initialize Admin table if empty
 const initializeAdmin = async () => {
@@ -498,6 +489,7 @@ const startServer = async () => {
 };
 
 startServer();
+
 
 
 
