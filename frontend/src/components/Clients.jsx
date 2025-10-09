@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { Plus, X } from "lucide-react";
+import { API_URL } from "../api";
 
 export default function Clients() {
   const [team, setTeam] = useState([]);
@@ -20,7 +21,7 @@ export default function Clients() {
   // Fetch clients
   const fetchTeam = async () => {
     try {
-      const res = await fetch(`${process.env.REACT_APP_API_URL}/api/team`);
+      const res = await fetch(`${API_URL}/api/team`);
       const data = await res.json();
       setTeam(data);
     } catch (err) {
@@ -244,3 +245,4 @@ export default function Clients() {
     </section>
   );
 }
+
