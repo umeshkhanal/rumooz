@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
 import { motion } from "framer-motion";
-const API_URL = "https://rumooz-backend.onrender.com";
+import { API_URL } from "../api";
 // Animation variants
 const boxVariants = {
   hidden: { opacity: 0, scale: 0.8 },
@@ -371,6 +371,7 @@ export default function Contact() {
     </section>
   );
 }
+
 
 
 
