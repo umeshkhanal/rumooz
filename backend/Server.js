@@ -341,7 +341,7 @@ app.post("/contact", async (req, res) => {
     const admin = await Admin.findOne({
       attributes: ["id", "username", "email", "contact_mail"], // underscore
     });
-
+    console.log(admin);
     if (!admin || !admin.contact_mail) {
       return res.status(500).json({ message: "Admin contact email not found." });
     }
@@ -493,6 +493,7 @@ const startServer = async () => {
 };
 
 startServer();
+
 
 
 
