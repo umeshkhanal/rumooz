@@ -22,13 +22,15 @@ const {
 dotenv.config();
 const app = express();
 
-// Middleware
 app.use(cors({
-  origin: "*", // for testing only
+  origin: "*",
   methods: ["GET","POST","PUT","DELETE"],
   allowedHeaders: ["Content-Type","Authorization"]
 }));
-app.use(express.json());
+
+app.use(express.json()); // for JSON POST requests
+app.use(express.urlencoded({ extended: true })); // for form POST requests
+
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
 // ---------- DATABASE CONNECTION ----------
@@ -492,6 +494,7 @@ const startServer = async () => {
 };
 
 startServer();
+
 
 
 
