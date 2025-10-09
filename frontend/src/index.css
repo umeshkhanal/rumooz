@@ -1,0 +1,57 @@
+@import "tailwindcss";
+@import "react-phone-input-2/lib/style.css";
+@import '@fortawesome/fontawesome-free/css/all.min.css';
+@import "slick-carousel/slick/slick.css"; 
+@import "slick-carousel/slick/slick-theme.css";
+
+/* ============================
+   🔹 react-phone-input-2 Dark Theme Fix
+   ============================ */
+
+/* Make search bar background transparent */
+.react-tel-input .country-list .search {
+  background-color: transparent !important;
+}
+
+/* Search box styling */
+.react-tel-input .country-list .search-box {
+  background-color: #171c23 !important;
+  color: #fff !important;
+  border: 1px solid #4B5563 !important;
+  border-radius: 0.5rem !important;
+}
+
+/* Placeholder text */
+.react-tel-input .country-list .search-box::placeholder {
+  color: #9ca3af !important;
+}
+
+/* Dropdown country list */
+.react-tel-input .country-list {
+  background-color: #1f2937 !important;
+  color: #fff !important;
+  border-radius: 0.75rem !important;
+  border: 1px solid #4B5563 !important;
+}
+
+/* Individual country items */
+.react-tel-input .country-list .country {
+  color: #fff !important;
+}
+
+/* Hovered or selected country */
+.react-tel-input .country-list .country.highlight {
+  background-color: #4B5563 !important;
+}
+
+/* Flag dropdown scroll bar color */
+.react-tel-input .country-list::-webkit-scrollbar {
+  width: 8px;
+}
+.react-tel-input .country-list::-webkit-scrollbar-thumb {
+  background-color: #374151;
+  border-radius: 1rem;
+}
+.react-tel-input .country-list::-webkit-scrollbar-track {
+  background-color: #1f2937;
+}
