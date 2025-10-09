@@ -397,6 +397,7 @@ app.post("/api/team", upload.single("photo"), async (req, res) => {
 app.get("/api/team", async (req, res) => {
   try {
     const members = await Clients.findAll({ order: [["id", "ASC"]] });
+        console.log("team successfully");
     res.json(members);
   } catch (err) {
     console.error(err);
@@ -489,6 +490,7 @@ const startServer = async () => {
 };
 
 startServer();
+
 
 
 
