@@ -2,6 +2,7 @@ import React, { useState, useRef } from "react";
 import Slider from "react-slick";
 import { motion, AnimatePresence } from "framer-motion";
 import { Link } from "react-router-dom";
+import { assets } from "../assets/assets";
 
 const services = [
   {
@@ -12,7 +13,7 @@ const services = [
       "Content creation and marketing strategy",
       "Email marketing and analytics",
     ],
-    img: "dm1.jpg",
+    img: assets.dm,
   },
   {
     title: "Social Media Management",
@@ -22,7 +23,7 @@ const services = [
       "Performance analytics and campaign optimization",
       "Building a strong social media presence",
     ],
-    img: "socialmedia.jpg",
+    img: assets.socialmedia,
   },
   {
     title: "Creative Graphic Design",
@@ -32,7 +33,7 @@ const services = [
       "Business cards, brochures, and marketing materials",
       "Custom visuals reflecting your brand style",
     ],
-    img: "graphic.jpg",
+    img: assets.graphic,
   },
   {
     title: "Professional Photo Shoots",
@@ -42,7 +43,7 @@ const services = [
       "Post-processing and retouching",
       "Creating professional visual content for marketing",
     ],
-    img: "photoshoot.jpg",
+    img: assets.photoshoot,
   },
   {
     title: "Video Production & Editing",
@@ -52,7 +53,7 @@ const services = [
       "Editing and post-production",
       "Marketing and social media video content",
     ],
-    img: "videoedit.jpg",
+    img: assets.videoedit,
   },
   {
     title: "Website Creation & Development",
@@ -62,7 +63,7 @@ const services = [
       "Ensuring website performance and SEO optimization",
       "Maintaining a strong digital presence online",
     ],
-    img: "web5.jpg",
+    img: assets.web,
   },
   {
     title: "Creation of Official Company Emails",
@@ -72,7 +73,7 @@ const services = [
       "Custom domains for all employees",
       "Integration with collaboration tools and apps",
     ],
-    img: "email1.jpg",
+    img: assets.email,
   },
   {
     title: "Hosting & Server Management Services",
@@ -82,23 +83,14 @@ const services = [
       "Regular backups and server monitoring",
       "Ensuring continuity of online services",
     ],
-    img: "server1.jpg",
+    img: assets.server,
   },
 ];
 
 // Animation Variants
-const titleVariants = {
-  hidden: { x: 200, opacity: 0 },
-  visible: { x: 0, opacity: 1, transition: { duration: 0.8 } },
-};
-const titleVariants2 = {
-  hidden: { x: -200, opacity: 0 },
-  visible: { x: 0, opacity: 1, transition: { duration: 0.8 } },
-};
-const cardVariants = {
-  hidden: { opacity: 0, y: 50, scale: 0.95 },
-  visible: { opacity: 1, y: 0, scale: 1, transition: { duration: 0.6 } },
-};
+const titleVariants = { hidden: { x: 100, opacity: 0 }, visible: { x: 0, opacity: 1, transition: { duration: 0.8 } } };
+const titleVariants2 = { hidden: { x: -100, opacity: 0 }, visible: { x: 0, opacity: 1, transition: { duration: 0.8 } } };
+const cardVariants = { hidden: { opacity: 0, y: 30, scale: 0.95 }, visible: { opacity: 1, y: 0, scale: 1, transition: { duration: 0.5 } } };
 
 const Services = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -107,12 +99,12 @@ const Services = () => {
   const settings = {
     dots: true,
     infinite: true,
-    speed: 800,
+    speed: 600,
     slidesToShow: 1,
     slidesToScroll: 1,
     autoplay: true,
     autoplaySpeed: 5000,
-    arrows: true,
+    arrows: false,
     pauseOnHover: true,
     adaptiveHeight: true,
     beforeChange: (_, newIndex) => setCurrentIndex(newIndex),
@@ -127,11 +119,8 @@ const Services = () => {
   };
 
   return (
-    <section
-      id="services"
-      className="relative w-full text-white py-20 px-6 md:px-20 overflow-hidden"
-    >
-      {/* Animated Background with Smooth Fade */}
+    <section id="services" className="relative w-full text-white py-16 px-4 sm:px-8 md:px-20 overflow-hidden">
+      {/* Animated Background */}
       <AnimatePresence mode="wait">
         <motion.div
           key={currentIndex}
@@ -139,49 +128,24 @@ const Services = () => {
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 1 }}
+          className="absolute inset-0 bg-cover bg-center bg-no-repeat z-[-1]"
           style={{
-            position: "absolute",
-            top: 0,
-            left: 0,
-            width: "100%",
-            height: "100%",
-            backgroundImage: `linear-gradient(to bottom right, rgba(0,0,0,0.6), rgba(0,0,0,0.3)), url('/background/${services[currentIndex].img}')`,
-            backgroundSize: "cover",
-            backgroundPosition: "center",
-            backgroundRepeat: "no-repeat",
-            zIndex: -1,
+            backgroundImage: `linear-gradient(to bottom right, rgba(0,0,0,0.6), rgba(0,0,0,0.3)), url(${services[currentIndex].img})`,
           }}
         />
       </AnimatePresence>
 
       {/* Section Title */}
-      <div className="text-center max-w-3xl mx-auto mb-12">
-        <h2 className="text-4xl md:text-5xl font-bold flex justify-center gap-2">
-          <motion.span
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            variants={titleVariants}
-          >
+      <div className="text-center max-w-xl mx-auto mb-10">
+        <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold flex justify-center gap-2 flex-wrap">
+          <motion.span initial="hidden" whileInView="visible" viewport={{ once: true }} variants={titleVariants}>
             Our
           </motion.span>
-          <motion.span
-            className="text-green-700"
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            variants={titleVariants2}
-          >
+          <motion.span className="text-green-700" initial="hidden" whileInView="visible" viewport={{ once: true }} variants={titleVariants2}>
             Services
           </motion.span>
         </h2>
-        <motion.p
-          className="text-white text-lg mt-4"
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8 }}
-        >
+        <motion.p className="text-white text-sm sm:text-base md:text-lg mt-3" initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} transition={{ duration: 0.8 }}>
           Explore our solutions that help your business grow and succeed online.
         </motion.p>
       </div>
@@ -190,15 +154,15 @@ const Services = () => {
       <Slider ref={sliderRef} {...settings}>
         {services.map((service, index) => (
           <div key={index}>
-            <div className="flex justify-center items-center flex-col min-h-[80vh]">
-              {/* Dropdown */}
-              <div className="w-full max-w-md mb-5">
+            <div className="flex flex-col items-center justify-center px-2 sm:px-6 min-h-[60vh] sm:min-h-[70vh] md:min-h-[80vh]">
+              {/* Mobile Dropdown */}
+              <div className="w-full max-w-md mb-4">
                 <select
-                  value=""
+                  defaultValue=""
                   onChange={handleSelectService}
-                  className="w-full px-4 py-3 rounded-lg border-2 border-green-600 bg-white text-black font-semibold cursor-pointer focus:outline-none focus:ring-2 focus:ring-green-500"
+                  className="w-full px-3 py-2 sm:px-4 sm:py-3 rounded-lg border-2 border-green-600 bg-white text-black font-semibold text-sm sm:text-base cursor-pointer focus:outline-none focus:ring-2 focus:ring-green-500"
                 >
-                  <option value="" disabled selected>
+                  <option value="" disabled>
                     🔍 Search for a Service
                   </option>
                   {services.map((s, i) => (
@@ -211,28 +175,23 @@ const Services = () => {
 
               {/* Service Card */}
               <motion.div
-                className="service-card w-full max-w-2xl p-8 rounded-xl shadow-lg"
+                className="service-card w-full max-w-xl p-6 sm:p-8 rounded-xl shadow-lg"
                 variants={cardVariants}
                 initial="hidden"
                 whileInView="visible"
                 viewport={{ once: true }}
                 style={{
-                  background: "rgba(0,0,0,0.55)", // slightly transparent for readability
-                  color: "#fff",
+                  background: "rgba(0,0,0,0.55)",
                   textAlign: "left",
                   width: "100%",
-                  backdropFilter: "blur(5px)", // optional soft blur effect
+                  backdropFilter: "blur(4px)",
                 }}
               >
-                <h3 className="text-3xl font-bold mb-4 text-green-600">
-                  {service.title}
-                </h3>
-                <h4 className="text-lg font-semibold mb-3">
-                  What you get from us:
-                </h4>
-                <ul className="mb-6 pl-5 list-disc">
+                <h3 className="text-2xl sm:text-3xl font-bold mb-3 text-green-700">{service.title}</h3>
+                <h4 className="text-sm sm:text-lg font-semibold mb-2 text-white">What you get:</h4>
+                <ul className="mb-4 pl-4 list-disc text-xs sm:text-sm text-white">
                   {service.bullets.map((b, i) => (
-                    <li key={i} className="text-base mb-2">
+                    <li key={i} className="mb-1 sm:mb-2">
                       {b}
                     </li>
                   ))}
@@ -240,7 +199,7 @@ const Services = () => {
                 <div className="flex justify-center">
                   <Link
                     to="/request-details"
-                    className="bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-6 rounded-lg transition-colors"
+                    className="bg-green-700 hover:bg-green-900 text-white font-semibold py-2 px-4 sm:py-3 sm:px-6 rounded-lg transition-colors text-sm sm:text-base"
                   >
                     Request Service
                   </Link>

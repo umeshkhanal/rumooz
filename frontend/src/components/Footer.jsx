@@ -1,166 +1,93 @@
 import React from "react";
-import { HashLink as Link } from "react-router-hash-link";
-import { motion } from "framer-motion";
+import { Link as RouterLink } from "react-router-dom"; // Normal routing
+import { HashLink } from "react-router-hash-link"; // Only for scrolling
+import { assets } from "../assets/assets";
 
 export default function Footer() {
   return (
-    <footer className="bg-gradient-to-r from-blue-500 via-green-800 to-blue-900 text-white">
-      <div className="w-full px-6 md:px-12 lg:px-20 py-14">
-        {/* Top: Logo & Tagline */}
+    <footer className="bg-gray-900 text-gray-300">
+      <div className="w-full px-6 sm:px-12 md:px-20 py-12">
+
+        {/* Top Logo */}
         <div className="flex flex-col md:flex-row items-center justify-between mb-12">
-          {/* Logo */}
-          <div className="flex items-center space-x-3">
-            <div className="flex items-center space-x-2">
-              <img
-                src="/logo.jpg"
-                alt="Rumooz Logo"
-                className="w-32 h-32 rounded-full object-cover border-2 border-green-500 mb-4"
-              />
+          <div className="flex items-center space-x-3 mb-6 md:mb-0">
+            <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-full overflow-hidden">
+              <img src={assets.logo} alt="Rumooz Logo" className="w-full h-full object-cover" />
             </div>
-            <h2 className="text-2xl font-bold">Rumooz Smart Solutions</h2>
+            <h2 className="text-white text-lg sm:text-xl md:text-2xl font-semibold tracking-wide">
+              Rumooz Smart Solutions
+            </h2>
           </div>
-          {/* Tagline */}
-          <p className="text-gray-300 mt-4 md:mt-0 text-center md:text-right max-w-md">
-            Driving growth through innovative digital marketing, IT solutions,
-            and creative branding that makes an impact.
+          <p className="text-gray-400 text-center md:text-right max-w-xs sm:max-w-md md:max-w-md text-sm sm:text-base">
+            Driving growth through innovative digital marketing, IT solutions, and creative branding.
           </p>
         </div>
 
-        {/* Middle Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-10 ">
+        {/* Link Columns */}
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-8 border-t border-gray-700 pt-10">
           {/* Quick Links */}
           <div>
-            <h3 className="text-lg font-semibold mb-4 border-b border-green-500 pb-2">
-              Quick Links
-            </h3>
-            <ul className="space-y-2">
-              <li>
-                <Link
-                  to="/#home"
-                  smooth={true}
-                  duration={500}
-                  className="cursor-pointer hover:text-green-300"
-                >
-                  Home
-                </Link>
-              </li>
-              <li>
-                <Link
-                  to="/#about"
-                  smooth={true}
-                  duration={500}
-                  className="cursor-pointer hover:text-green-300"
-                >
-                  About
-                </Link>
-              </li>
-              <li>
-                <Link
-                  to="/#services"
-                  smooth={true}
-                  duration={500}
-                  className="cursor-pointer hover:text-green-300"
-                >
-                  Services
-                </Link>
-              </li>
-              <li>
-                <Link
-                  to="/#contact"
-                  smooth={true}
-                  duration={500}
-                  className="cursor-pointer hover:text-green-300"
-                >
-                  Contact
-                </Link>
-              </li>
+            <h3 className="text-gray-400 text-sm font-semibold mb-3 uppercase">Quick Links</h3>
+            <ul className="space-y-2 text-sm">
+              {["Home", "About", "Services", "Contact"].map((item) => (
+                <li key={item}>
+                  <HashLink
+                    to={`/#${item.toLowerCase()}`}
+                    smooth
+                    className="hover:text-white transition-colors cursor-pointer"
+                  >
+                    {item}
+                  </HashLink>
+                </li>
+              ))}
             </ul>
           </div>
 
           {/* Services */}
           <div>
-            <h3 className="text-lg font-semibold mb-4 border-b border-green-500 pb-2">
-              Our Services
-            </h3>
-            <ul className="space-y-2 text-gray-300">
-              <li>Digital Marketing</li>
-              <li>Social Media Management</li>
-              <li>Branding & Design</li>
-              <li>Web Development</li>
+            <h3 className="text-gray-400 text-sm font-semibold mb-3 uppercase">Our Services</h3>
+            <ul className="space-y-2 text-sm text-gray-400">
+              {["Digital Marketing", "Social Media Management", "Branding & Design", "Web Development"].map((service) => (
+                <li key={service} className="hover:text-white transition-colors">{service}</li>
+              ))}
             </ul>
           </div>
 
           {/* Contact */}
           <div>
-            <h3 className="text-lg font-semibold mb-4 border-b border-green-500 pb-2">
-              Contact Us
-            </h3>
-            <ul className="space-y-3 text-gray-300">
-              <li>📍 MBZ City, Abu Dhabi, United Arab Emirates</li>
+            <h3 className="text-gray-400 text-sm font-semibold mb-3 uppercase">Contact Us</h3>
+            <ul className="space-y-2 text-sm text-gray-400">
+              <li>📍 MBZ City, Abu Dhabi, UAE</li>
               <li>📞 +971 58 836 9622</li>
               <li>
-                ✉️
-                <span>
-                  <a
-                    href="mailto:info@rumooz.ae"
-                    className="text-blue-500 hover:underline"
-                  >
-                    info@rumooz.ae
-                  </a>
-                </span>
+                ✉️{" "}
+                <a href="mailto:info@rumooz.ae" className="hover:text-white transition-colors">
+                  info@rumooz.ae
+                </a>
               </li>
             </ul>
           </div>
 
-          {/* Social Media */}
+          {/* Social */}
           <div>
-            <h3 className="text-lg font-semibold mb-4 border-b border-green-500 pb-2">
-              Follow Us
-            </h3>
-            {/* Social Media Links */}
-            <motion.div
-              className="flex gap-6 mt-6"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6 }}
-            >
-              {/* Instagram */}
-              <a
-                href="https://www.instagram.com/rumoozteam/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-gray-300 hover:text-pink-500 transition text-2xl"
-              >
+            <h3 className="text-gray-400 text-sm font-semibold mb-3 uppercase">Follow Us</h3>
+            <div className="flex gap-4 mt-4 text-xl sm:text-2xl">
+              <a href="https://www.instagram.com/rumoozteam/" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">
                 <i className="fab fa-instagram"></i>
               </a>
-
-              {/* TikTok */}
-              <a
-                href="https://www.tiktok.com/@rumoozteam"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-gray-300 hover:text-black transition text-2xl"
-              >
+              <a href="https://www.tiktok.com/@rumoozteam" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">
                 <i className="fab fa-tiktok"></i>
               </a>
-            </motion.div>
+            </div>
           </div>
         </div>
 
-        {/* Bottom Bar */}
-        <div className="border-t border-green-600 mt-12 pt-6 flex flex-col md:flex-row items-center justify-between text-gray-400 text-sm">
-          <p>
-            © {new Date().getFullYear()} Rumooz Smart Solutions. All Rights
-            Reserved.
-          </p>
-          <div className="flex space-x-6 mt-3 md:mt-0">
-            <Link to="privacy-policy" className="hover:text-green-300">
-              Privacy Policy
-            </Link>
-            <Link to="/terms-of-service" className="hover:text-green-300">
-              Terms of Service
-            </Link>
+        {/* Bottom Legal */}
+        <div className="border-t border-gray-700 mt-12 pt-6 flex flex-col sm:flex-row items-center justify-between text-gray-500 text-xs sm:text-sm">
+          <p>© {new Date().getFullYear()} Rumooz Smart Solutions. All Rights Reserved.</p>
+          <div className="flex space-x-4 mt-2 sm:mt-0">
+            <RouterLink to="/privacy-policy" className="hover:text-white transition-colors">Privacy Policy</RouterLink>
+            <RouterLink to="/terms-of-service" className="hover:text-white transition-colors">Terms of Service</RouterLink>
           </div>
         </div>
       </div>

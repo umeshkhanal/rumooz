@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
+import { API_URL } from "../../api";
 
 export default function AdminLogin() {
   const [form, setForm] = useState({ username: "", password: "" });
@@ -14,9 +15,7 @@ export default function AdminLogin() {
   const [resendTimer, setResendTimer] = useState(0);
 
   const navigate = useNavigate();
-  const API = process.env.REACT_APP_API_URL;
 
-  // Countdown timer for resending OTP
   useEffect(() => {
     if (resendTimer > 0) {
       const timer = setInterval(() => setResendTimer((t) => t - 1), 1000);
@@ -27,25 +26,21 @@ export default function AdminLogin() {
   const handleChange = (e) =>
     setForm({ ...form, [e.target.name]: e.target.value });
 
-  // Update login state globally
+  // 🔹 Update login state globally after saving session
   const syncLoginState = () => window.dispatchEvent(new Event("storage"));
 
-  // ---------------- LOGIN ----------------
   const submitLogin = async (e) => {
     e.preventDefault();
     setLoading(true);
     setVerifyMessage("");
 
     try {
-      const res = await fetch(`${API}/api/admin/login`, {
+      const res = await fetch(`${API_URL}/api/admin/login`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(form),
       });
-
-      console.log("Login response:", res);
       const data = await res.json();
-      console.log("Login data:", data);
 
       if (res.status === 403 && data.email) {
         setEmail(data.email);
@@ -64,7 +59,6 @@ export default function AdminLogin() {
       setPopupMessage("✅ Login successful!");
       setTimeout(() => navigate("/profile"), 1000);
     } catch (err) {
-      console.error("Login error:", err);
       setPopup("error");
       setPopupMessage(err.message || "Login failed");
     } finally {
@@ -72,48 +66,40 @@ export default function AdminLogin() {
     }
   };
 
-  // ---------------- SEND VERIFICATION CODE ----------------
   const sendVerificationCode = async (email, initial = false) => {
     if (resendTimer > 0) return;
-
     try {
-      const res = await fetch(`${API}/api/admin/send-code`, {
+      const res = await fetch(`${API_URL}/api/admin/send-code`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email }),
       });
-
       const data = await res.json();
-      console.log("Send code response:", data);
-
       if (!res.ok) throw new Error(data.message || "Failed to send code");
 
       setVerifyMessage(
-        initial ? "✅ Verification code sent to your email" : "✅ New code sent!"
+        initial
+          ? "✅ Verification code sent to your email"
+          : "✅ New code sent!"
       );
       setResendTimer(30);
     } catch (err) {
-      console.error("Send code error:", err);
       setVerifyMessage(err.message || "⚠️ Failed to send verification code");
     }
   };
 
-  // ---------------- CONFIRM VERIFICATION CODE ----------------
   const confirmCode = async () => {
     if (!code) return setVerifyMessage("⚠️ Enter the verification code");
     setLoading(true);
     setVerifyMessage("");
 
     try {
-      const res = await fetch(`${API}/api/admin/confirm-code`, {
+      const res = await fetch(`${API_URL}/api/admin/confirm-code`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, code }),
       });
-
       const data = await res.json();
-      console.log("Confirm code data:", data);
-
       if (!res.ok) throw new Error(data.message || "Verification failed");
 
       sessionStorage.setItem("token", data.token);
@@ -125,7 +111,6 @@ export default function AdminLogin() {
       setShowVerify(false);
       setTimeout(() => navigate("/profile"), 1000);
     } catch (err) {
-      console.error("Confirm code error:", err);
       setVerifyMessage(err.message || "⚠️ Verification failed");
     } finally {
       setLoading(false);
@@ -194,7 +179,9 @@ export default function AdminLogin() {
             {verifyMessage && (
               <p
                 className={`text-sm ${
-                  verifyMessage.startsWith("✅") ? "text-green-400" : "text-red-400"
+                  verifyMessage.startsWith("✅")
+                    ? "text-green-400"
+                    : "text-red-400"
                 }`}
               >
                 {verifyMessage}

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
+import { API_URL } from "../../api";
 
 export default function ProfilePage() {
   const [adminData, setAdminData] = useState({
@@ -27,7 +28,7 @@ export default function ProfilePage() {
     const fetchAdmin = async () => {
       try {
         const token = sessionStorage.getItem("token");
-        const res = await fetch(`${process.env.REACT_APP_API_URL}/api/admin/profile`, {
+        const res = await fetch(`${API_URL}/api/admin/profile`, {
           headers: { Authorization: `Bearer ${token}` },
         });
         const data = await res.json();
@@ -69,7 +70,7 @@ export default function ProfilePage() {
     if (resendTimer > 0) return;
     try {
       const token = sessionStorage.getItem("token");
-      const res = await fetch(`${process.env.REACT_APP_API_URL}/api/admin/send-code`, {
+      const res = await fetch(`${API_URL}/api/admin/send-code`, {
         method: "POST",
         headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
         body: JSON.stringify({ email: emailInput }),
@@ -92,7 +93,7 @@ export default function ProfilePage() {
     setLoading(true);
     try {
       const token = sessionStorage.getItem("token");
-      const res = await fetch(`${process.env.REACT_APP_API_URL}/api/admin/change-email`, {
+      const res = await fetch(`${API_URL}/api/admin/change-email`, {
         method: "POST",
         headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
         body: JSON.stringify({
@@ -124,7 +125,7 @@ export default function ProfilePage() {
     setLoading(true);
     try {
       const token = sessionStorage.getItem("token");
-      const res = await fetch(`${process.env.REACT_APP_API_URL}/api/admin/change-contact-mail`, {
+      const res = await fetch(`${API_URL}/api/admin/change-contact-mail`, {
         method: "POST",
         headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
         body: JSON.stringify({
@@ -158,7 +159,7 @@ export default function ProfilePage() {
     setLoading(true);
     try {
       const token = sessionStorage.getItem("token");
-      const res = await fetch(`${process.env.REACT_APP_API_URL}/api/admin/change-password`, {
+      const res = await fetch(`${API_URL}/api/admin/change-password`, {
         method: "POST",
         headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
         body: JSON.stringify({
