@@ -9,8 +9,7 @@ import server from "./background/server.jpg";
 import PrestigeTower from "./buildings/PrestigeTower.jpg";
 import PrestigeTower1 from "./buildings/PrestigeTower1.jpg";
 import PrestigeTower2 from "./buildings/PrestigeTower2.jpg";
-import homebg from "./homebg.mp4";
-import rumooz from "./rumooz.mp4";
+;
 import logo from "./logo.jpg";
 import logoName from "./logoName.jpg";
 
@@ -28,6 +27,6 @@ export const assets = {
   PrestigeTower2,
   logo,
   logoName,
-  rumooz,
-  homebg
+
 };
+
