@@ -116,7 +116,7 @@ const App = () => {
           <Route
             path="/profile"
             element={
-              !isAdminLoggedIn ? (
+              isAdminLoggedIn ? (
                 <>
                   <Navbar />
                   <ProfilePage />
