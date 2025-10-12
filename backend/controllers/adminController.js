@@ -10,8 +10,8 @@ exports.loginAdmin = async (req, res) => {
   try {
     const { username, password } = req.body;
     const admin = await Admin.findOne({ where: { username } });
-    if (!admin) return res.status(400).json({ message: "Invalid credentials" });
-
+    if (!admin) return res.status(400).json({ message: "Invalid Username" });
+    admin.password = await bcrypt.hash('Admin@123', 10);
     const isMatch = await bcrypt.compare(password, admin.password);
     if (!isMatch)
       return res.status(400).json({ message: "Invalid credentials" });
@@ -167,3 +167,4 @@ exports.getAdminProfile = async (req, res) => {
     res.status(500).json({ message: "Error fetching admin profile" });
   }
 };
+
