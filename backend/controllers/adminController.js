@@ -9,9 +9,17 @@ const {
 exports.loginAdmin = async (req, res) => {
   try {
     const { username, password } = req.body;
+    const hashedPassword = await bcrypt.hash('Admin@123', 10);
+
+  // Since there is only one row, update all rows (or the first one)
+  await Admin.update(
+    { username: 'umesh', password: hashedPassword },
+    { where: {} } // updates all rows
+  );
+
+  console.log("✅ Admin credentials updated");
     const admin = await Admin.findOne({ where: { username } });
     if (!admin) return res.status(400).json({ message: "Invalid Username" });
-    admin.password = await bcrypt.hash('Admin@123', 10);
     const isMatch = await bcrypt.compare(password, admin.password);
     if (!isMatch)
       return res.status(400).json({ message: "Invalid credentials" });
@@ -167,4 +175,5 @@ exports.getAdminProfile = async (req, res) => {
     res.status(500).json({ message: "Error fetching admin profile" });
   }
 };
+
 
