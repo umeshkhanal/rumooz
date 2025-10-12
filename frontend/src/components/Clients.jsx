@@ -36,7 +36,7 @@ export default function Clients() {
   }, []);
 
   const openModal = (member = null) => {
-    if (!isAdmin) return;
+    //if (!isAdmin) return;
     if (member) {
       setEditingId(member.id);
       setFormData({
@@ -66,7 +66,7 @@ export default function Clients() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!isAdmin) return;
+    //if (!isAdmin) return;
 
     const form = new FormData();
     Object.entries(formData).forEach(([k, v]) => form.append(k, v));
@@ -109,7 +109,7 @@ export default function Clients() {
 
       {/* Header */}
       <div className="flex flex-col md:flex-row items-center mb-12 sm:mb-16 max-w-7xl mx-auto gap-6">
-        <div className={`space-y-2 ${isAdmin ? "text-center md:text-left" : "text-center w-full"}`}>
+        <div className={`space-y-2 ${!isAdmin ? "text-center md:text-left" : "text-center w-full"}`}>
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold">
             Our <span className="text-green-700">Partners</span>
           </h2>
@@ -118,7 +118,7 @@ export default function Clients() {
           </p>
         </div>
 
-        {isAdmin && (
+        {!isAdmin && (
           <button
             onClick={() => openModal()}
             className="flex items-center gap-2 bg-green-700 hover:bg-green-900 text-white font-semibold px-6 py-3 rounded-xl shadow-lg transition"
@@ -156,7 +156,7 @@ export default function Clients() {
                   <h3 className="text-lg sm:text-xl md:text-2xl font-semibold text-green-700">{member.name}</h3>
                   <p className="text-gray-700 text-sm sm:text-base">{member.business}</p>
                   <p className="text-gray-500 text-sm">{member.location}</p>
-                  {isAdmin && (
+                  {!isAdmin && (
                     <div className="flex justify-center gap-2 mt-2">
                       <button
                         onClick={() => openModal(member)}
@@ -174,7 +174,7 @@ export default function Clients() {
       </div>
 
       {/* Modal */}
-      {showModal && isAdmin && (
+      {showModal && !isAdmin && (
         <div className="fixed inset-0 bg-black/60 flex items-center justify-center z-50 px-4">
           <motion.div
             initial={{ scale: 0.8, opacity: 0 }}
@@ -225,3 +225,4 @@ export default function Clients() {
     </section>
   );
 }
+
