@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { Plus, X } from "lucide-react";
 import { API_URL } from "../api";
+import { assets } from "../assets/assets";
 
 export default function Clients() {
   const [team, setTeam] = useState([]);
@@ -147,7 +148,7 @@ export default function Clients() {
               >
                 <div className="relative w-full h-48 sm:h-56 md:h-64 overflow-hidden">
                   <img
-                    src={member.photo ? `${API_URL}${member.photo}` : "/default-avatar.png"}
+                    src={member.photo ? `${API_URL}${member.photo}` : assets.defaultavatar}
                     alt={member.name}
                     className="w-full h-full object-cover"
                   />
@@ -225,5 +226,3 @@ export default function Clients() {
     </section>
   );
 }
-
-
