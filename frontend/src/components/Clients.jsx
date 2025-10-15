@@ -148,7 +148,7 @@ export default function Clients() {
               >
                 <div className="relative w-full h-48 sm:h-56 md:h-64 overflow-hidden">
                   <img
-                    src={member.photo ? `${API_URL}${member.photo}` : assets.defaultavatar}
+                    src={assets.defaultavatar}
                     alt={member.name}
                     className="w-full h-full object-cover"
                   />
@@ -226,3 +226,4 @@ export default function Clients() {
     </section>
   );
 }
+
